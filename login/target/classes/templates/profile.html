@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil de Usuario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fafafa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .profile-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.15);
+            text-align: center;
+            width: 400px;
+        }
+        h2 {
+            margin-bottom: 1rem;
+        }
+        p {
+            font-size: 1.1rem;
+        }
+        a {
+            display: inline-block;
+            margin-top: 1rem;
+            text-decoration: none;
+            color: #e53935;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-container">
+    <h2>Bienvenid@, <span th:text="${username}">usuario</span> 👋</h2>
+    <p>Tu rol es: <strong th:text="${role}">[ROL]</strong></p>
+    <p>Último ingreso: <span th:text="${lastLogin}">N/A</span></p>
+
+    <a th:href="@{/logout}">Cerrar sesión</a>
+</div>
+
+<div class="profile-container">
+    <form th:action="@{/change-password}" method="post">
+        <input type="password" name="currentPassword" placeholder="Contraseña actual" required />
+        <input type="password" name="newPassword" placeholder="Nueva contraseña" required />
+        <button type="submit">Actualizar contraseña</button>
+        <div th:if="${error}" th:text="${error}" style="color:red;"></div>
+        <div th:if="${success}" th:text="${success}" style="color:green;"></div>
+    </form>
+</div>
+
+</body>
+</html>

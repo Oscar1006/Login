@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administración</title>
+</head>
+<body>
+    <h2>Panel de Administración</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Rol</th>
+                <th>Último login</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.role}"></td>
+                <td th:text="${user.lastLogin}"></td>
+                <td>
+                    <form th:action="@{'/admin/delete/' + ${user.id}}" method="post" style="display:inline;">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                    <form th:action="@{'/admin/reset-password/' + ${user.id}}" method="post" style="display:inline;">
+                        <button type="submit">Borrar contraseña</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/profile}">Volver al perfil</a>
+</body>
+</html>
